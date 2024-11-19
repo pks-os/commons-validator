@@ -402,19 +402,19 @@
  * <h2>4.2 Regular Expression Validation</h2>
  * <p>
  * Regular expression validation can be done either by using the <em>static</em>
- * methods provied by <a href="RegexValidator.html">RegexValidator</a> or
+ * methods provided by <a href="RegexValidator.html">RegexValidator</a> or
  * by creating a new instance, which caches and re-uses compiled Patterns.
  * </p>
  * <ul>
- * <li><strong>Method Flavours</strong> - three <em>flavors</em> of validation metods are provided:</li>
+ * <li><strong>Method Flavours</strong> - three <em>flavors</em> of validation methods are provided:</li>
  * <li>
  * <ul>
  * <li>{@code isValid()} methods return true/false to indicate
  * whether validation was successful.</li>
- * <li>{@code validate()} methods return a {@link String}
+ * <li>{@code validate()} methods return a {@link java.lang.String}
  * value of the matched <em>groups</em> aggregated together or
  * {@code null} if invalid.</li>
- * <li>{@code match()} methods return a {@link String} array
+ * <li>{@code match()} methods return a {@link java.lang.String} array
  * of the matched <em>groups</em> or {@code null} if invalid.</li>
  * </ul>
  * </li>
@@ -481,7 +481,7 @@
  * <ul>
  * <li>{@code isValid(<em>code</em>)} - validates the check digit of a code,
  * returning {@code true} or {@code false}.</li>
- * <li>{@code calculate(<em>code</em>)} - calulates the check digit for a code
+ * <li>{@code calculate(<em>code</em>)} - calculates the check digit for a code
  * returning the check digit character.</li>
  * </ul>
  * <p>
@@ -527,7 +527,7 @@
  * boolean valid = ISBNCheckDigit.ISBN.isValid(code);
  * </pre>
  * <p>
- * The following examples show calulating the check digit of a code:
+ * The following examples show calculating the check digit of a code:
  * </p>
  * <pre>
  * // Luhn check digit validation
