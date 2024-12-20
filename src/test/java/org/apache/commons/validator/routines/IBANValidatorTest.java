@@ -63,6 +63,8 @@ public class IBANValidatorTest {
     private static final Pattern IBAN_PAT = Pattern
             .compile(IBAN_PART + IBAN_PART + IBAN_PART + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?" + IBAN_PART + "?");
 
+    private static final String IBAN_REGISTRY = "iban_registry_v99.txt";
+
     // It's not clear whether IBANs can contain lower case characters
     // so we test for both where possible
     // Note that the BIC near the start of the code is always upper case or digits
@@ -125,6 +127,7 @@ public class IBANValidatorTest {
             "GL8964710001000206",
             "GR1601101250000000012300695",
             "GT82TRAJ01020000001210029690",
+            "HN88CABF00000000000250005469",
             "HR1210010051863000160",
             "HU42117730161111101800000000",
             "IE29AIBK93115212345678",
@@ -248,11 +251,11 @@ public class IBANValidatorTest {
         }
     }
 
-    static Collection<Arguments> ibanRegistryV98Source() throws Exception {
-        final Path ibanRegistryV98 = Paths.get(IBANValidator.class.getResource("iban_registry_v98.txt").toURI());
+    static Collection<Arguments> ibanRegistrySource() throws Exception {
+        final Path ibanRegistry = Paths.get(IBANValidator.class.getResource(IBAN_REGISTRY).toURI());
 
         final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = Files.newBufferedReader(ibanRegistryV98, StandardCharsets.ISO_8859_1);
+        final Reader rdr = Files.newBufferedReader(ibanRegistry, StandardCharsets.ISO_8859_1);
 
         CSVRecord country = null;
         CSVRecord cc = null;
@@ -306,11 +309,11 @@ public class IBANValidatorTest {
         return result;
     }
 
-    static Collection<Arguments> ibanRegistryV98SourceExamples() throws Exception {
-        final Path ibanRegistryV98 = Paths.get(IBANValidator.class.getResource("iban_registry_v98.txt").toURI());
+    static Collection<Arguments> ibanRegistrySourceExamples() throws Exception {
+        final Path ibanRegistry = Paths.get(IBANValidator.class.getResource(IBAN_REGISTRY).toURI());
 
         final CSVFormat format = CSVFormat.DEFAULT.builder().setDelimiter('\t').build();
-        final Reader rdr = Files.newBufferedReader(ibanRegistryV98, StandardCharsets.ISO_8859_1);
+        final Reader rdr = Files.newBufferedReader(ibanRegistry, StandardCharsets.ISO_8859_1);
 
         CSVRecord country = null;
         CSVRecord electronicExample = null;
@@ -343,7 +346,7 @@ public class IBANValidatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ibanRegistryV98SourceExamples")
+    @MethodSource("ibanRegistrySourceExamples")
     public void exampleAccountsShouldBeValid(final String countryName, final String example) {
         Assumptions.assumeFalse(INVALID_IBAN_FIXTURES.contains(example), "Skip invalid example: " + example + " for " + countryName);
         assertTrue(IBANValidator.getInstance().isValid(example), "IBAN validator returned false for " + example + " for " + countryName);
@@ -439,7 +442,7 @@ public class IBANValidatorTest {
     }
 
     @ParameterizedTest
-    @MethodSource("ibanRegistryV98Source")
+    @MethodSource("ibanRegistrySource")
     public void validatorShouldExistWithProperConfiguration(final String countryName, final String countryCode, final List<String> acountyCode, final int ibanLength, final String structure) throws Exception {
         final String countryInfo = " countryCode: " + countryCode + ", countryName: " + countryName;
         final Validator validator = IBANValidator.getInstance().getValidator(countryCode);
