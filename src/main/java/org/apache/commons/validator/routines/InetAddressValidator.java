@@ -66,7 +66,7 @@ public class InetAddressValidator implements Serializable {
     private static final Pattern ID_CHECK_PATTERN = Pattern.compile("[^\\s/%]+");
 
     /** IPv4 RegexValidator */
-    private final static RegexValidator IPV4_VALIDATOR = new RegexValidator(IPV4_REGEX);
+    private static final RegexValidator IPV4_VALIDATOR = new RegexValidator(IPV4_REGEX);
 
     /**
      * Returns the singleton instance of this validator.
@@ -75,6 +75,13 @@ public class InetAddressValidator implements Serializable {
      */
     public static InetAddressValidator getInstance() {
         return VALIDATOR;
+    }
+
+    /**
+     * Constructs a new instance.
+     */
+    public InetAddressValidator() {
+        // empty
     }
 
     /**
